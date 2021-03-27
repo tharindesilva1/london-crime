@@ -1,8 +1,11 @@
 import { ApolloProvider } from "@apollo/client";
 import { AppProps } from "next/app";
+import React from "react";
 import { useApollo } from "../apollo/client";
 
-export default ({ Component, pageProps }: AppProps) => {
+import "./reset.css";
+
+const app = ({ Component, pageProps }: AppProps) => {
   const apolloClient = useApollo(pageProps.initialApolloState);
 
   return (
@@ -11,3 +14,5 @@ export default ({ Component, pageProps }: AppProps) => {
     </ApolloProvider>
   );
 };
+
+export default app;

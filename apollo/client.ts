@@ -4,7 +4,6 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from "@apollo/client";
-import { typeDefs } from "./type-defs";
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 

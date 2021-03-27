@@ -18,9 +18,23 @@ export const resolvers: IResolvers = {
         throw error;
       }
     },
-    getCrimes: async (_, _args) => {
+    findCrimeTypesInArea: async (_, args) => {
+      const { xMin, xMax, yMin, yMax, type } = args;
+      const startDate = new Date(args.startDate);
+      const endDate = new Date(args.endDate);
+      return await Crime.findCrimeTypesInArea(
+        startDate,
+        endDate,
+        xMin,
+        xMax,
+        yMin,
+        yMax,
+        type
+      );
+    },
+    getCrimes: async (_, args) => {
       try {
-        const crimes = await Crime.getCrimes(_args.ids);
+        const crimes = await Crime.getCrimes(args.ids);
 
         return crimes.map(({ type, location }) => ({
           location,

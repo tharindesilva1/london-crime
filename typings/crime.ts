@@ -12,3 +12,5 @@ export enum CrimeType {
   BURGLARY = "Burglary",
   PERSON_THEFT = "Theft from the person",
 }
+
+export type TypeCount = { type: CrimeType; count: number };
