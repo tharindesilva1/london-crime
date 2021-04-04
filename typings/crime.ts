@@ -13,4 +13,14 @@ export enum CrimeType {
   PERSON_THEFT = "Theft from the person",
 }
 
+const CrimeTypeEncoding = Object.values(CrimeType);
+
+export const encodeCrimeType = (type: CrimeType) => {
+  return Object.values(CrimeType).indexOf(type);
+};
+
+export const decodeCrimeType = (compressedType: number) => {
+  return CrimeTypeEncoding[compressedType];
+};
+
 export type TypeCount = { type: CrimeType; count: number };

@@ -5,13 +5,15 @@ import React, {
   useRef,
   useState,
 } from "react";
+import Head from "next/head";
 import { gql, useLazyQuery } from "@apollo/client";
 import FilterControls from "../components/FilterControls";
 import Map from "../components/map/index";
 import { Feature, GeoJsonProperties, Geometry } from "geojson";
+
 import { IRec } from "../typings/rec";
 import MapLegend from "../components/MapLegend";
-import { CrimeType, TypeCount } from "../typings/crime";
+import { CrimeType, decodeCrimeType, TypeCount } from "../typings/crime";
 
 const IndexPage = () => {
   const [selectedCrimeDate, setSelectedCrimeDate] = useState<string>(
@@ -93,9 +95,9 @@ const IndexPage = () => {
   const points: Feature<Geometry, GeoJsonProperties>[] = useMemo(() => {
     if (pointData) {
       return pointData.findCrimes.map(
-        ({ location, type }: { location: number[]; type: CrimeType }) => ({
+        ({ location, type }: { location: number[]; type: number }) => ({
           type: "Feature",
-          properties: { cluster: false, type },
+          properties: { cluster: false, type: decodeCrimeType(type) },
           geometry: {
             type: "Point",
             coordinates: location,
@@ -145,7 +147,7 @@ const IndexPage = () => {
 
   return (
     <>
-      <head>
+      <Head>
         <link
           rel="stylesheet"
           href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css"
@@ -156,7 +158,7 @@ const IndexPage = () => {
           href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.0/mapbox-gl-draw.css"
           type="text/css"
         />
-      </head>
+      </Head>
       <main>
         <FilterControls
           date={selectedCrimeDate}

@@ -4,7 +4,7 @@ export const typeDefs = gql`
   type Crime {
     id: String!
     location: [Float!]
-    type: String
+    type: Int
   }
 
   type TypeCount {

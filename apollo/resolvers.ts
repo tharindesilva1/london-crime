@@ -1,5 +1,6 @@
 import { IResolvers } from "apollo-server-micro";
 import Crime from "../models/crime";
+import { encodeCrimeType } from "../typings/crime";
 
 export const resolvers: IResolvers = {
   Query: {
@@ -12,7 +13,7 @@ export const resolvers: IResolvers = {
         return crimes.map((crime) => ({
           id: crime.id,
           location: crime.location.coordinates,
-          type: crime.type,
+          type: encodeCrimeType(crime.type),
         }));
       } catch (error) {
         throw error;
@@ -46,3 +47,4 @@ export const resolvers: IResolvers = {
     },
   },
 };
+
